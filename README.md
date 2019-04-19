@@ -18,6 +18,7 @@ Todo:
 - Refactor 
     - main class name -> ConsoleTimer
     - file package-private classes -> per class files
+    - use standard library for command line interface
 - Add *.bat and *.sh for fast running
 - Generally add packaging
 - Hosting of builds
