@@ -6,7 +6,7 @@ Todo:
 - Timer number in history
 - Shorthand command h<N> for last N timers history
 - Command sum<N> for duration sum of previous N timers
-    - Convert to h:m:s format
+    - Convert to h::m::s format
     - Add outputting wallclock tim span during which this timers where logged
 - Output date once in history if finish and start share date 
     - Good place for unit tests
