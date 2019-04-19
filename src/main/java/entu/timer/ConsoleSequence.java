@@ -1,3 +1,5 @@
+package entu.timer;
+
 import static java.lang.Integer.parseInt;
 import static java.time.Instant.now;
 import static java.time.format.DateTimeFormatter.ofLocalizedDateTime;
