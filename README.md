@@ -1,5 +1,10 @@
 # timer
-simple console timer
+Simple Java Console Timer with history
+
+Commands:
+    history - list all set timers 
+    exit
+    <N>s - new timer for n seconds
 
 Todo:
 - Automatic file persisting
