@@ -9,7 +9,7 @@ Commands:
 Todo:
 - Automatic file persisting
 - Timer number in history
-- Shorthand command h<N> for last N timers history
+- Shorthand command h\<N\> for last N timers history
 - Command sum\<N\> for duration sum of previous N timers
     - Convert to hh::mm::ss format
     - Add outputting wallclock tim span during which this timers where logged
