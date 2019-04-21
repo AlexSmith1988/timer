@@ -15,7 +15,8 @@ Todo:
 - Shorthand command h\<N\> for last N timers history
 - Command sum\<N\> for duration sum of previous N timers
     - Convert to hh::mm::ss format
-    - Add outputting wallclock tim span during which this timers where logged
+    - Add outputting wallclock time span during which this timers where logged
+    - sum n m - sum all timer durations between n and m inclusive
 - Output date once in history if finish and start share date 
     - Good place for unit tests
 - Refactor 
