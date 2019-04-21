@@ -8,6 +8,7 @@ Commands:
 
 Todo:
 - Automatic file persisting
+- Output "timer for n seconds started"
 - Timer number in history
 - stop/stop -n stop timer earlier
 - add label on timer
