@@ -27,6 +27,8 @@ Todo:
     - shorthand commands
 - Add setting to stop previous timer when a new one starts
 - Add tasks
+- Add plans
+- Add essays/contemplations
 - Add code complete
 - Add *.bat and *.sh for fast running
 - Generally add packaging
