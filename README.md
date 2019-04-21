@@ -25,6 +25,7 @@ Todo:
     - file package-private classes -> per class files
     - use standard library for command line interface
     - shorthand commands
+- Add setting to stop previous timer when a new one starts
 - Add tasks
 - Add code complete
 - Add *.bat and *.sh for fast running
