@@ -7,6 +7,7 @@ Commands:
 - \<N\>s - new timer for n seconds
 
 Todo:
+- next command - excel-like automatic guessing of next interval based on up to 5 previous ones.
 - Automatic file persisting
 - Output "timer for n seconds started"
 - Timer number in history

@@ -3,6 +3,7 @@ package entu.timer;
 import static java.lang.Integer.parseInt;
 import static java.time.Instant.now;
 import static java.time.format.DateTimeFormatter.ofLocalizedDateTime;
+import static java.util.Collections.emptyList;
 
 import java.time.Instant;
 import java.time.ZoneId;
@@ -28,6 +29,7 @@ import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
 
 public class ConsoleSequence {
+
     public static void main(String[] args)
             throws InvalidMidiDataException, MidiUnavailableException {
         final Playback playback = new Playback();
@@ -38,6 +40,7 @@ public class ConsoleSequence {
 }
 
 class CommandLineInterface {
+
     private final Scanner inScanner = new Scanner(System.in);
 
     private final TimerService timerService;
@@ -62,7 +65,31 @@ class CommandLineInterface {
                 continue;
             }
 
-            if (command.charAt(command.length() - 1) == 's' && command.length() > 1) {
+            if ("next".equalsIgnoreCase(command)) {
+                final List<Record> lastTimers = history.last(5);
+                double averageMultiplier = 0.0;
+                int actualAmount = lastTimers.size();
+                for (int i = 0; i < actualAmount - 1; ++i) {
+                    averageMultiplier +=
+                            1.0 * lastTimers.get(i + 1).getDurationSeconds() / lastTimers.get(i)
+                                    .getDurationSeconds();
+                }
+                averageMultiplier /= (actualAmount - 1);
+
+                final int nextDuration;
+                if (averageMultiplier < 0.1 || actualAmount < 1) {
+                    nextDuration = 1;
+                } else {
+                    nextDuration = (int) (averageMultiplier * lastTimers.get(actualAmount - 1)
+                            .getDurationSeconds());
+                }
+
+                timerService.addTimer(nextDuration);
+                
+                continue;
+            }
+
+            if (command.length() > 1 && command.charAt(command.length() - 1) == 's') {
                 final String secondsDurationStr = command.substring(0, command.length() - 1).trim();
                 try {
                     timerService.addTimer(parseInt(secondsDurationStr));
@@ -84,6 +111,7 @@ class CommandLineInterface {
 }
 
 class History {
+
     private final List<Record> records = new ArrayList<>();
 
     void addRecord(final Record record) {
@@ -93,9 +121,20 @@ class History {
     void print() {
         records.forEach(System.out::println);
     }
+
+    List<Record> last(final int amount) {
+        final int recordsAmount = records.size();
+
+        int fromIndex = recordsAmount - amount - 1;
+        if (fromIndex <= 0) {
+            return records;
+        }
+        return records.subList(fromIndex, recordsAmount);
+    }
 }
 
 class Record {
+
     private static final DateTimeFormatter dateTimeFormatter =
             ofLocalizedDateTime(FormatStyle.LONG)
                     .withLocale(Locale.getDefault())
@@ -108,6 +147,10 @@ class Record {
     Record(Instant start, int durationSeconds) {
         this.start = start;
         this.durationSeconds = durationSeconds;
+    }
+
+    public int getDurationSeconds() {
+        return durationSeconds;
     }
 
     @Override
@@ -135,6 +178,7 @@ class Record {
 }
 
 class TimerService {
+
     private final ScheduledThreadPoolExecutor scheduledThreadPoolExecutor =
             new ScheduledThreadPoolExecutor(1);
 
@@ -150,6 +194,7 @@ class TimerService {
         final Instant start = now();
         final Record record = new Record(start, seconds);
         history.addRecord(record);
+        System.out.println("Started new timer: " + record);
 
         scheduledThreadPoolExecutor.schedule(() -> timeout(record), seconds, TimeUnit.SECONDS);
     }
@@ -162,6 +207,7 @@ class TimerService {
 }
 
 class Playback {
+
     private final Sequencer sequencer = MidiSystem.getSequencer();
 
     private final PlaybackState playbackState = new PlaybackState();
@@ -183,17 +229,17 @@ class Playback {
         sequencer.addMetaEventListener(playbackState);
 
         new Thread(
-                        () -> {
-                            while (true) {
-                                final int queuedPlays = queuedPlaybacks.get();
-                                if (queuedPlays > 0 && !playbackState.isPlaying()) {
-                                    queuedPlaybacks.decrementAndGet();
-                                    start();
-                                }
+                () -> {
+                    while (true) {
+                        final int queuedPlays = queuedPlaybacks.get();
+                        if (queuedPlays > 0 && !playbackState.isPlaying()) {
+                            queuedPlaybacks.decrementAndGet();
+                            start();
+                        }
 
-                                sleepABit();
-                            }
-                        })
+                        sleepABit();
+                    }
+                })
                 .start();
     }
 
@@ -217,6 +263,7 @@ class Playback {
 }
 
 class PlaybackState implements MetaEventListener {
+
     private static final int PLAYBACK_ENDED = 47;
 
     private volatile boolean playing;
