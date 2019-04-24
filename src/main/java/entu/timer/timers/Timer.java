@@ -13,7 +13,7 @@ import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 
-public class Record {
+public class Timer {
 
     private static final DateTimeFormatter dateTimeFormatter =
             ofLocalizedDateTime(FormatStyle.SHORT)
@@ -30,7 +30,7 @@ public class Record {
     private Instant finish;
     private final int durationSeconds;
 
-    Record(int id, Instant start, int durationSeconds) {
+    Timer(int id, Instant start, int durationSeconds) {
         this.id = id;
         this.start = start;
         this.durationSeconds = durationSeconds;

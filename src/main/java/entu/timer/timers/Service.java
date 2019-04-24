@@ -15,33 +15,33 @@ public class Service {
 
     private final Output output;
 
-    private final History history;
+    private final Timetable timetable;
     private final Playback playback;
     private final Ids ids;
 
     public Service(
             final Output output,
-            final History history,
+            final Timetable timetable,
             final Playback playback,
             Ids ids) {
         this.output = output;
-        this.history = history;
+        this.timetable = timetable;
         this.playback = playback;
         this.ids = ids;
     }
 
     public void addTimer(final int seconds) {
         final Instant start = now();
-        final Record record = new Record(ids.nextId(), start, seconds);
-        history.addRecord(record);
-        output.print("started " + record);
+        final Timer timer = new Timer(ids.nextId(), start, seconds);
+        timetable.addRecord(timer);
+        output.print("started " + timer);
 
-        scheduledThreadPoolExecutor.schedule(() -> timeout(record), seconds, TimeUnit.SECONDS);
+        scheduledThreadPoolExecutor.schedule(() -> timeout(timer), seconds, TimeUnit.SECONDS);
     }
 
-    private void timeout(final Record record) {
+    private void timeout(final Timer timer) {
         playback.schedule();
-        record.finish();
-        output.print("finished " + record);
+        timer.finish();
+        output.print("finished " + timer);
     }
 }

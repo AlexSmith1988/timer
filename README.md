@@ -1,8 +1,8 @@
 # timer
-Simple Java Console Timer with history
+Simple Java Console Timer with timetable
 
 Commands:
-- history - print all timers 
+- timetable - print all timers 
 - exit - quit program
 - \<n\>s - add new timer for n seconds
 - next - excel-like automatic guessing of next interval based on up to 5 previous ones
@@ -23,7 +23,7 @@ Todo:
 - stop/stop -n stop timer earlier
 - add label on timer
 - add stopwatch 
-- Shorthand command h\<N\> for last N timers history
+- Shorthand command h\<N\> for last N timers timetable
 - Add setting to stop previous timer when a new one starts
 - Add tasks
 - Add plans

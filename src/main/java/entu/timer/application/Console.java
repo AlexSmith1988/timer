@@ -3,7 +3,7 @@ package entu.timer.application;
 import entu.timer.cli.CommandLineInterface;
 import entu.timer.output.Output;
 import entu.timer.sound.Playback;
-import entu.timer.timers.History;
+import entu.timer.timers.Timetable;
 import entu.timer.timers.Ids;
 import entu.timer.timers.Service;
 import java.util.Scanner;
@@ -17,9 +17,9 @@ public class Console {
 
         final Output stdout = new Output() {};
         final Playback playback = new Playback(stdout);
-        final History history = new History();
+        final Timetable timetable = new Timetable();
         final Service service =
-                new Service(stdout, history, playback, new Ids());
-        new CommandLineInterface(stdout, new Scanner(System.in), service, history).start();
+                new Service(stdout, timetable, playback, new Ids());
+        new CommandLineInterface(stdout, new Scanner(System.in), service, timetable).start();
     }
 }
