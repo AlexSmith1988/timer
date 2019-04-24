@@ -2,6 +2,7 @@ package entu.timer.timers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class History {
 
@@ -23,5 +24,10 @@ public class History {
             return records;
         }
         return records.subList(fromIndex, recordsAmount);
+    }
+
+    public Stream<Record> get(final int fromId, final int toId) {
+        return records.stream()
+                .filter(record -> record.idInRange(fromId, toId));
     }
 }

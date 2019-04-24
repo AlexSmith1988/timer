@@ -17,18 +17,24 @@ public class TimerService {
 
     private final History history;
     private final Playback playback;
+    private final IdManager idManager;
 
-    public TimerService(final Output output, final History history, final Playback playback) {
+    public TimerService(
+            final Output output,
+            final History history,
+            final Playback playback,
+            IdManager idManager) {
         this.output = output;
         this.history = history;
         this.playback = playback;
+        this.idManager = idManager;
     }
 
     public void addTimer(final int seconds) {
         final Instant start = now();
-        final Record record = new Record(start, seconds);
+        final Record record = new Record(idManager.nextId(), start, seconds);
         history.addRecord(record);
-        output.print("Started new timer: " + record);
+        output.print("started " + record);
 
         scheduledThreadPoolExecutor.schedule(() -> timeout(record), seconds, TimeUnit.SECONDS);
     }
@@ -36,6 +42,6 @@ public class TimerService {
     private void timeout(final Record record) {
         playback.schedule();
         record.finish();
-        output.print("Timer done: " + record);
+        output.print("finished " + record);
     }
 }

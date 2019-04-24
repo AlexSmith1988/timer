@@ -70,6 +70,34 @@ public class CommandLineInterface {
                 continue;
             }
 
+            if (command.startsWith("sum")) {
+                final String[] args = command.replaceAll(" {2}", " ").split(" ");
+                if (args.length != 3) {
+                    output.print(
+                            "Wrong sum command format. Expected \"sum <from> <till>\". Actual \""
+                                    + command
+                                    + "\".");
+                } else {
+                    try {
+                        final int from = parseInt(args[1]);
+                        final int to = parseInt(args[2]);
+
+                        output.print(
+                                history.get(from, to).mapToInt(Record::getDurationSeconds).sum()
+                                        + " seconds - sum from "
+                                        + from
+                                        + " to "
+                                        + to);
+                    } catch (final NumberFormatException nfe) {
+                        output.print(
+                                "Wrong sum command format. Args are expected to be numbers. Actual \""
+                                        + command
+                                        + "\".");
+                    }
+                }
+                continue;
+            }
+
             if (command.length() > 1 && command.charAt(command.length() - 1) == 's') {
                 final String secondsDurationStr = command.substring(0, command.length() - 1).trim();
                 try {
