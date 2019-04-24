@@ -9,6 +9,7 @@ Commands:
 
 
 Todo:
+- Gradle task for running, adding it into timer.sh and timer.bat
 - Automatic file persisting
 - Output "timer for n seconds started"
 - Timer number in history
