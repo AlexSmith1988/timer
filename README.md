@@ -5,7 +5,8 @@ Commands:
 - history - print all timers 
 - exit - quit program
 - \<n\>s - add new timer for n seconds
-- next - excel-like automatic guessing of next interval based on up to 5 previous ones.
+- next - excel-like automatic guessing of next interval based on up to 5 previous ones
+- sum n m - sum of durations of timers with ids between n and m
 
 
 Todo:
