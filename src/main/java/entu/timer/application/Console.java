@@ -1,6 +1,7 @@
 package entu.timer.application;
 
 import entu.timer.cli.CommandLineInterface;
+import entu.timer.output.Output;
 import entu.timer.sound.Playback;
 import entu.timer.timers.History;
 import entu.timer.timers.TimerService;
@@ -13,9 +14,10 @@ public class Console {
     public static void main(String[] args)
             throws InvalidMidiDataException, MidiUnavailableException {
 
-        final Playback playback = new Playback();
+        final Output stdout = new Output(){};
+        final Playback playback = new Playback(stdout);
         final History history = new History();
-        final TimerService timerService = new TimerService(history, playback);
-        new CommandLineInterface(new Scanner(System.in), timerService, history).start();
+        final TimerService timerService = new TimerService(stdout, history, playback);
+        new CommandLineInterface(stdout, new Scanner(System.in), timerService, history).start();
     }
 }

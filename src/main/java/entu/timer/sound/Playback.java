@@ -6,6 +6,7 @@ import static javax.sound.midi.ShortMessage.CONTROL_CHANGE;
 import static javax.sound.midi.ShortMessage.NOTE_OFF;
 import static javax.sound.midi.ShortMessage.NOTE_ON;
 
+import entu.timer.output.Output;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiEvent;
@@ -20,11 +21,11 @@ public class Playback {
 
     private final Sequencer sequencer = MidiSystem.getSequencer();
 
-    private final PlaybackState playbackState = new PlaybackState();
+    private final PlaybackState playbackState;
 
     private AtomicInteger queuedPlaybacks = new AtomicInteger();
 
-    public Playback() throws MidiUnavailableException, InvalidMidiDataException {
+    public Playback(final Output output) throws MidiUnavailableException, InvalidMidiDataException {
         final Sequence seq = new Sequence(Sequence.PPQ, 3);
         final Track track = seq.createTrack();
         final int note = 30;
@@ -38,6 +39,7 @@ public class Playback {
 
         sequencer.open();
         sequencer.setSequence(seq);
+        playbackState = new PlaybackState(output);
         sequencer.addMetaEventListener(playbackState);
 
         commonPool()

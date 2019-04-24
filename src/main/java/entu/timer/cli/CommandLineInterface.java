@@ -2,6 +2,7 @@ package entu.timer.cli;
 
 import static java.lang.Integer.parseInt;
 
+import entu.timer.output.Output;
 import entu.timer.timers.History;
 import entu.timer.timers.Record;
 import entu.timer.timers.TimerService;
@@ -10,12 +11,17 @@ import java.util.Scanner;
 
 public class CommandLineInterface {
 
+    private final Output output;
     private final Scanner inScanner;
     private final TimerService timerService;
     private final History history;
 
     public CommandLineInterface(
-            Scanner inScanner, final TimerService timerService, final History history) {
+            final Output output,
+            final Scanner inScanner,
+            final TimerService timerService,
+            final History history) {
+        this.output = output;
         this.inScanner = inScanner;
         this.timerService = timerService;
         this.history = history;
@@ -70,17 +76,17 @@ public class CommandLineInterface {
                     timerService.addTimer(parseInt(secondsDurationStr));
                     continue;
                 } catch (NumberFormatException e) {
-                    System.out.println(
+                    output.print(
                             "thought to be timer command, but can't identify as a number of seconds: "
                                     + secondsDurationStr);
                 }
             }
 
-            System.out.println("Unable to identify command: " + command);
+            output.print("Unable to identify command: " + command);
         }
     }
 
     private void prompt() {
-        System.out.println("history, <N>s - n seconds, exit");
+        output.print("history, <N>s - n seconds, exit");
     }
 }
