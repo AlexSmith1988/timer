@@ -4,7 +4,7 @@ import entu.timer.cli.CommandLineInterface;
 import entu.timer.output.Output;
 import entu.timer.sound.Playback;
 import entu.timer.timers.History;
-import entu.timer.timers.IdManager;
+import entu.timer.timers.Ids;
 import entu.timer.timers.Service;
 import java.util.Scanner;
 import javax.sound.midi.InvalidMidiDataException;
@@ -19,7 +19,7 @@ public class Console {
         final Playback playback = new Playback(stdout);
         final History history = new History();
         final Service service =
-                new Service(stdout, history, playback, new IdManager());
+                new Service(stdout, history, playback, new Ids());
         new CommandLineInterface(stdout, new Scanner(System.in), service, history).start();
     }
 }

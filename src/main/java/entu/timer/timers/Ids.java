@@ -1,6 +1,6 @@
 package entu.timer.timers;
 
-public class IdManager {
+public class Ids {
     
     private int id;
 

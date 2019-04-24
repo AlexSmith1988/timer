@@ -17,22 +17,22 @@ public class Service {
 
     private final History history;
     private final Playback playback;
-    private final IdManager idManager;
+    private final Ids ids;
 
     public Service(
             final Output output,
             final History history,
             final Playback playback,
-            IdManager idManager) {
+            Ids ids) {
         this.output = output;
         this.history = history;
         this.playback = playback;
-        this.idManager = idManager;
+        this.ids = ids;
     }
 
     public void addTimer(final int seconds) {
         final Instant start = now();
-        final Record record = new Record(idManager.nextId(), start, seconds);
+        final Record record = new Record(ids.nextId(), start, seconds);
         history.addRecord(record);
         output.print("started " + record);
 
