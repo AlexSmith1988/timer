@@ -5,9 +5,10 @@ Commands:
 - history - list all set timers 
 - exit
 - \<N\>s - new timer for n seconds
+- next command - excel-like automatic guessing of next interval based on up to 5 previous ones.
+
 
 Todo:
-- next command - excel-like automatic guessing of next interval based on up to 5 previous ones.
 - Automatic file persisting
 - Output "timer for n seconds started"
 - Timer number in history
