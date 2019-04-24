@@ -15,6 +15,7 @@ Todo:
     - Add outputting wall clock time span during which this timers where logged
     - sum n m - sum all timer durations between n and m inclusive
 - Unit tests!
+- Extract commands
 - use standard library for command line interface
 - shorthand commands
 - Gradle task for running, adding it into timer.sh and timer.bat

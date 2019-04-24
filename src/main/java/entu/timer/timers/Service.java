@@ -8,7 +8,7 @@ import java.time.Instant;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class TimerService {
+public class Service {
 
     private final ScheduledThreadPoolExecutor scheduledThreadPoolExecutor =
             new ScheduledThreadPoolExecutor(1);
@@ -19,7 +19,7 @@ public class TimerService {
     private final Playback playback;
     private final IdManager idManager;
 
-    public TimerService(
+    public Service(
             final Output output,
             final History history,
             final Playback playback,

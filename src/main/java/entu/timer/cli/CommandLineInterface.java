@@ -5,7 +5,7 @@ import static java.lang.Integer.parseInt;
 import entu.timer.output.Output;
 import entu.timer.timers.History;
 import entu.timer.timers.Record;
-import entu.timer.timers.TimerService;
+import entu.timer.timers.Service;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,17 +13,17 @@ public class CommandLineInterface {
 
     private final Output output;
     private final Scanner inScanner;
-    private final TimerService timerService;
+    private final Service service;
     private final History history;
 
     public CommandLineInterface(
             final Output output,
             final Scanner inScanner,
-            final TimerService timerService,
+            final Service service,
             final History history) {
         this.output = output;
         this.inScanner = inScanner;
-        this.timerService = timerService;
+        this.service = service;
         this.history = history;
     }
 
@@ -65,7 +65,7 @@ public class CommandLineInterface {
                                                     .getDurationSeconds());
                 }
 
-                timerService.addTimer(nextDuration);
+                service.addTimer(nextDuration);
 
                 continue;
             }
@@ -101,7 +101,7 @@ public class CommandLineInterface {
             if (command.length() > 1 && command.charAt(command.length() - 1) == 's') {
                 final String secondsDurationStr = command.substring(0, command.length() - 1).trim();
                 try {
-                    timerService.addTimer(parseInt(secondsDurationStr));
+                    service.addTimer(parseInt(secondsDurationStr));
                     continue;
                 } catch (NumberFormatException e) {
                     output.print(
