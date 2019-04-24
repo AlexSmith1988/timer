@@ -1,2 +1,2 @@
 cd build/classes/java/main;
-java entu.timer.ConsoleSequence
+java entu.timer.application.Console
