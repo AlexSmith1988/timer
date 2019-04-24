@@ -19,4 +19,3 @@ public class Console {
         new CommandLineInterface(new Scanner(System.in), timerService, history).start();
     }
 }
-

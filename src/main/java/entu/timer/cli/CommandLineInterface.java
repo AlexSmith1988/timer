@@ -14,8 +14,8 @@ public class CommandLineInterface {
     private final TimerService timerService;
     private final History history;
 
-    public CommandLineInterface(Scanner inScanner, final TimerService timerService,
-            final History history) {
+    public CommandLineInterface(
+            Scanner inScanner, final TimerService timerService, final History history) {
         this.inScanner = inScanner;
         this.timerService = timerService;
         this.history = history;
@@ -41,8 +41,9 @@ public class CommandLineInterface {
                 int actualAmount = lastTimers.size();
                 for (int i = 0; i < actualAmount - 1; ++i) {
                     averageMultiplier +=
-                            1.0 * lastTimers.get(i + 1).getDurationSeconds() / lastTimers.get(i)
-                                    .getDurationSeconds();
+                            1.0
+                                    * lastTimers.get(i + 1).getDurationSeconds()
+                                    / lastTimers.get(i).getDurationSeconds();
                 }
                 averageMultiplier /= (actualAmount - 1);
 
@@ -50,8 +51,12 @@ public class CommandLineInterface {
                 if (averageMultiplier < 0.1 || actualAmount < 1) {
                     nextDuration = 1;
                 } else {
-                    nextDuration = (int) (averageMultiplier * lastTimers.get(actualAmount - 1)
-                            .getDurationSeconds());
+                    nextDuration =
+                            (int)
+                                    (averageMultiplier
+                                            * lastTimers
+                                                    .get(actualAmount - 1)
+                                                    .getDurationSeconds());
                 }
 
                 timerService.addTimer(nextDuration);

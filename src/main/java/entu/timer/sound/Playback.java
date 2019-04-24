@@ -1,5 +1,11 @@
 package entu.timer.sound;
 
+import static java.util.concurrent.ForkJoinPool.commonPool;
+import static java.util.stream.Stream.of;
+import static javax.sound.midi.ShortMessage.CONTROL_CHANGE;
+import static javax.sound.midi.ShortMessage.NOTE_OFF;
+import static javax.sound.midi.ShortMessage.NOTE_ON;
+
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiEvent;
@@ -21,30 +27,41 @@ public class Playback {
     public Playback() throws MidiUnavailableException, InvalidMidiDataException {
         final Sequence seq = new Sequence(Sequence.PPQ, 3);
         final Track track = seq.createTrack();
-        int n = 55;
-        track.add(new MidiEvent(new ShortMessage(ShortMessage.CONTROL_CHANGE, 0, 0, n), 0));
-        track.add(new MidiEvent(new ShortMessage(ShortMessage.NOTE_ON, 0, n, 127), 0));
-        track.add(new MidiEvent(new ShortMessage(ShortMessage.NOTE_ON, 0, n + 3, 127), 0));
-        track.add(new MidiEvent(new ShortMessage(ShortMessage.NOTE_OFF, 0, n, 127), 4));
-        track.add(new MidiEvent(new ShortMessage(ShortMessage.NOTE_OFF, 0, n + 3, 127), 4));
+        final int note = 30;
+        of(
+                        midiEvent(shortMessage(CONTROL_CHANGE, 0, note), 0),
+                        midiEvent(shortMessage(NOTE_ON, note, 127), 0),
+                        midiEvent(shortMessage(NOTE_ON, note + 3, 127), 0),
+                        midiEvent(shortMessage(NOTE_OFF, note, 127), 4),
+                        midiEvent(shortMessage(NOTE_OFF, note + 3, 127), 4))
+                .forEach(track::add);
 
         sequencer.open();
         sequencer.setSequence(seq);
         sequencer.addMetaEventListener(playbackState);
 
-        new Thread(
-                () -> {
-                    while (true) {
-                        final int queuedPlays = queuedPlaybacks.get();
-                        if (queuedPlays > 0 && !playbackState.isPlaying()) {
-                            queuedPlaybacks.decrementAndGet();
-                            start();
-                        }
+        commonPool()
+                .submit(
+                        () -> {
+                            while (true) {
+                                final int queuedPlays = queuedPlaybacks.get();
+                                if (queuedPlays > 0 && !playbackState.isPlaying()) {
+                                    queuedPlaybacks.decrementAndGet();
+                                    start();
+                                }
 
-                        sleepABit();
-                    }
-                })
-                .start();
+                                sleepABit();
+                            }
+                        });
+    }
+
+    private MidiEvent midiEvent(final ShortMessage shortMessage, final int tick) {
+        return new MidiEvent(shortMessage, tick);
+    }
+
+    private ShortMessage shortMessage(final int command, final int data1, final int data2)
+            throws InvalidMidiDataException {
+        return new ShortMessage(command, 0, data1, data2);
     }
 
     private void sleepABit() {

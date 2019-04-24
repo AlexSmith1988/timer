@@ -46,7 +46,8 @@ public class Record {
                 + "  duration "
                 + durationSeconds
                 + " seconds  left till finish "
-                + (durationSeconds - start.until(now(), ChronoUnit.SECONDS)) + " seconds";
+                + (durationSeconds - start.until(now(), ChronoUnit.SECONDS))
+                + " seconds";
     }
 
     public void finish() {
