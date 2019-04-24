@@ -9,7 +9,6 @@ Commands:
 
 
 Todo:
-- add out/production to gitignore
 - Automatic file persisting
 - Output "timer for n seconds started"
 - Timer number in history
