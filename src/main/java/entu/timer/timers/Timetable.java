@@ -26,6 +26,13 @@ public class Timetable {
         return timers.subList(fromIndex, recordsAmount);
     }
 
+    public int lastDuration() {
+        if (timers.isEmpty()) {
+            return Timer.NOT_A_DURATION;
+        }
+        return timers.get(timers.size() - 1).getDurationSeconds();
+    }
+
     public Stream<Timer> get(final int fromId, final int toId) {
         return timers.stream()
                 .filter(timer -> timer.idInRange(fromId, toId));

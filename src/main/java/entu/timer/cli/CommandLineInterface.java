@@ -3,9 +3,9 @@ package entu.timer.cli;
 import static java.lang.Integer.parseInt;
 
 import entu.timer.output.Output;
-import entu.timer.timers.Timetable;
-import entu.timer.timers.Timer;
 import entu.timer.timers.Service;
+import entu.timer.timers.Timer;
+import entu.timer.timers.Timetable;
 import java.util.List;
 import java.util.Scanner;
 
@@ -61,11 +61,11 @@ public class CommandLineInterface {
                             (int)
                                     (averageMultiplier
                                             * lastTimers
-                                                    .get(actualAmount - 1)
-                                                    .getDurationSeconds());
+                                            .get(actualAmount - 1)
+                                            .getDurationSeconds());
                 }
 
-                service.addTimer(nextDuration);
+                service.addTimer(nextDuration, timetable.lastDuration());
 
                 continue;
             }
@@ -101,7 +101,7 @@ public class CommandLineInterface {
             if (command.length() > 1 && command.charAt(command.length() - 1) == 's') {
                 final String secondsDurationStr = command.substring(0, command.length() - 1).trim();
                 try {
-                    service.addTimer(parseInt(secondsDurationStr));
+                    service.addTimer(parseInt(secondsDurationStr), timetable.lastDuration());
                     continue;
                 } catch (NumberFormatException e) {
                     output.print(

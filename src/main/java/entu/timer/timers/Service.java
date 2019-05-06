@@ -30,9 +30,9 @@ public class Service {
         this.ids = ids;
     }
 
-    public void addTimer(final int seconds) {
+    public void addTimer(final int seconds, final int previousSeconds) {
         final Instant start = now();
-        final Timer timer = new Timer(ids.nextId(), start, seconds);
+        final Timer timer = new Timer(ids.nextId(), start, seconds, previousSeconds);
         timetable.addRecord(timer);
         output.print("started " + timer);
 
