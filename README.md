@@ -10,7 +10,7 @@ Commands:
 
 
 Todo:
-- Command sum\<N\> for duration sum of previous N timers
+- Command sum\<N\> for durationType sum of previous N timers
     - Convert to hh::mm::ss format
     - Add outputting wall clock time span during which this timers where logged
     - sum n m - sum all timer durations between n and m inclusive

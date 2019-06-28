@@ -33,6 +33,14 @@ public class Timetable {
         return timers.get(timers.size() - 1).getDurationSeconds();
     }
 
+    public int lastIncrement() {
+        if (timers.size() < 2) {
+            return lastDuration();
+        }
+        return timers.get(timers.size() - 1).getDurationSeconds() - timers.get(timers.size() - 2)
+                .getDurationSeconds();
+    }
+
     public Stream<Timer> get(final int fromId, final int toId) {
         return timers.stream()
                 .filter(timer -> timer.idInRange(fromId, toId));

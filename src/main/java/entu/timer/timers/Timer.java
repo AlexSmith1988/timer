@@ -15,7 +15,7 @@ import java.util.Locale;
 
 public class Timer {
 
-    public static final int NOT_A_DURATION = -1;
+    public static final int NOT_A_DURATION = 0;
 
     private static final DateTimeFormatter dateTimeFormatter =
             ofLocalizedDateTime(FormatStyle.SHORT)

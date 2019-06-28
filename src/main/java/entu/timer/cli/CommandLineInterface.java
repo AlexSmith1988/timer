@@ -1,5 +1,8 @@
 package entu.timer.cli;
 
+import static entu.timer.cli.DurationType.AS_INCREMENT;
+import static entu.timer.cli.DurationType.AS_INCREMENT_OF_INCREMENT;
+import static entu.timer.cli.DurationType.PLAIN;
 import static java.lang.Integer.parseInt;
 
 import entu.timer.output.Output;
@@ -99,15 +102,40 @@ public class CommandLineInterface {
             }
 
             if (command.length() > 1 && command.charAt(command.length() - 1) == 's') {
-                final String secondsDurationStr = command.substring(0, command.length() - 1).trim();
+                String durationStr = command.substring(0, command.length() - 1).trim();
+
+                DurationType durationType = PLAIN;
+                if (durationStr.startsWith("++")) {
+                    durationType = AS_INCREMENT_OF_INCREMENT;
+                    durationStr = durationStr.substring(2);
+                } else if (durationStr.startsWith("+")) {
+                    durationType = AS_INCREMENT;
+                    durationStr = durationStr.substring(1);
+                }
+
+                final int baseDurationCoefficient;
                 try {
-                    service.addTimer(parseInt(secondsDurationStr), timetable.lastDuration());
+                    baseDurationCoefficient = parseInt(durationStr);
+
+                    final int duration;
+                    if (durationType == AS_INCREMENT) {
+                        duration = timetable.lastDuration() + baseDurationCoefficient;
+                    } else if (durationType == AS_INCREMENT_OF_INCREMENT) {
+                        duration = timetable.lastDuration() + timetable.lastIncrement()
+                                + baseDurationCoefficient;
+                    } else {
+                        duration = baseDurationCoefficient;
+                    }
+
+                    service.addTimer(duration, timetable.lastDuration());
                     continue;
+
                 } catch (NumberFormatException e) {
                     output.print(
                             "thought to be timer command, but can't identify as a number of seconds: "
-                                    + secondsDurationStr);
+                                    + durationStr);
                 }
+
             }
 
             output.print("Unable to identify command: " + command);
@@ -118,3 +146,12 @@ public class CommandLineInterface {
         output.print("timetable, <N>s - n seconds, exit");
     }
 }
+
+enum DurationType {
+    PLAIN,
+    AS_INCREMENT,
+    AS_INCREMENT_OF_INCREMENT,
+    AS_MULTIPLIER,
+    AS_INCREMENT_MULTIPLIER
+}
+
