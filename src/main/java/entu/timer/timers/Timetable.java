@@ -45,4 +45,8 @@ public class Timetable {
         return timers.stream()
                 .filter(timer -> timer.idInRange(fromId, toId));
     }
+    
+    public Stream<Timer> get() {
+        return timers.stream();
+    }
 }

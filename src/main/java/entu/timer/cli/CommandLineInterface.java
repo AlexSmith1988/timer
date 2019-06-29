@@ -19,6 +19,8 @@ public class CommandLineInterface {
     private final Service service;
     private final Timetable timetable;
 
+    private String previousCommand;
+
     public CommandLineInterface(
             final Output output,
             final Scanner inScanner,
@@ -33,10 +35,16 @@ public class CommandLineInterface {
     public void start() {
         while (true) {
             prompt();
-            final String command = inScanner.nextLine().trim();
+            String command = inScanner.nextLine().trim();
 
             if ("exit".equalsIgnoreCase(command)) {
                 System.exit(0);
+            }
+
+            if ("r".equalsIgnoreCase(command) || "repeat".equalsIgnoreCase(command)) {
+                command = previousCommand;
+            } else {
+                previousCommand = command;
             }
 
             if ("timetable".equalsIgnoreCase(command)) {
@@ -71,6 +79,12 @@ public class CommandLineInterface {
                 service.addTimer(nextDuration, timetable.lastDuration());
 
                 continue;
+            }
+
+            if ("sum".equalsIgnoreCase(command)) {
+                output.print(
+                        timetable.get().mapToInt(Timer::getDurationSeconds).sum()
+                                + " seconds - sum");
             }
 
             if (command.startsWith("sum")) {
