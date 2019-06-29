@@ -85,6 +85,7 @@ public class CommandLineInterface {
                 output.print(
                         toSecondsAndMinutesMessage(
                                 timetable.get().mapToInt(Timer::getDurationSeconds).sum()));
+                continue;
             }
 
             if (command.startsWith("sum")) {
