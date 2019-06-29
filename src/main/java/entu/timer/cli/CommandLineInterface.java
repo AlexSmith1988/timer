@@ -83,8 +83,8 @@ public class CommandLineInterface {
 
             if ("sum".equalsIgnoreCase(command)) {
                 output.print(
-                        timetable.get().mapToInt(Timer::getDurationSeconds).sum()
-                                + " seconds - sum");
+                        toSecondsAndMinutesMessage(
+                                timetable.get().mapToInt(Timer::getDurationSeconds).sum()));
             }
 
             if (command.startsWith("sum")) {
@@ -100,8 +100,10 @@ public class CommandLineInterface {
                         final int to = parseInt(args[2]);
 
                         output.print(
-                                timetable.get(from, to).mapToInt(Timer::getDurationSeconds).sum()
-                                        + " seconds - sum from "
+                                toSecondsAndMinutesMessage(
+                                        timetable.get(from, to).mapToInt(Timer::getDurationSeconds)
+                                                .sum())
+                                        + " - sum from "
                                         + from
                                         + " to "
                                         + to);
@@ -154,6 +156,10 @@ public class CommandLineInterface {
 
             output.print("Unable to identify command: " + command);
         }
+    }
+
+    String toSecondsAndMinutesMessage(final int seconds) {
+        return seconds + " in seconds or " + seconds / 60 + ":" + seconds % 60 + " in min:sec";
     }
 
     private void prompt() {
