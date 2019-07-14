@@ -1,5 +1,6 @@
 package entu.timer.timers;
 
+import static entu.timer.timers.Timer.DATE_TIME_FORMATTER;
 import static java.time.Instant.now;
 
 import entu.timer.output.Output;
@@ -29,6 +30,7 @@ public class StopWatch {
             stop();
         }
         start = now();
+        print();
     }
 
     public void stop() {
@@ -39,7 +41,11 @@ public class StopWatch {
         timetable.addRecord(timer);
         playback.schedule();
         output.print("stopwatch round: " + timer);
+    }
 
+    private void print() {
+        output.print("started stopwatch " +
+                DATE_TIME_FORMATTER.format(start));
     }
 
 }

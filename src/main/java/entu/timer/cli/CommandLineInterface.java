@@ -123,7 +123,6 @@ public class CommandLineInterface {
 
             if (command.equalsIgnoreCase("start")) {
                 stopWatch.start();
-                output.print("started stopwatch");
                 continue;
             }
 

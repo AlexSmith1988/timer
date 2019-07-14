@@ -17,7 +17,7 @@ public class Timer {
 
     public static final int NOT_A_DURATION = 0;
 
-    private static final DateTimeFormatter dateTimeFormatter =
+    public static final DateTimeFormatter DATE_TIME_FORMATTER =
             ofLocalizedDateTime(FormatStyle.SHORT)
                     .withLocale(Locale.getDefault())
                     .withZone(ZoneId.systemDefault());
@@ -68,7 +68,7 @@ public class Timer {
                 + " seconds left" + printDiv() + ";  duration "
                 + durationSeconds
                 + ";  "
-                + dateTimeFormatter.format(start);
+                + DATE_TIME_FORMATTER.format(start);
     }
 
     private String printDiv() {
@@ -85,7 +85,7 @@ public class Timer {
                 + ":  duration "
                 + durationSeconds
                 + " seconds" + printDiv() + ";  "
-                + dateTimeFormatter.format(start)
+                + DATE_TIME_FORMATTER.format(start)
                 + " - "
                 + formattedFinish();
     }
@@ -94,7 +94,7 @@ public class Timer {
         if (sameDate(start, finish)) {
             return timeOnlyFormatter.format(finish);
         }
-        return dateTimeFormatter.format(finish);
+        return DATE_TIME_FORMATTER.format(finish);
     }
 
     private boolean sameDate(final Instant first, final Instant second) {
