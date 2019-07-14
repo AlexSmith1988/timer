@@ -105,7 +105,8 @@ public class Timer {
         return ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
     }
 
-    void finish() {
+    Timer finish() {
         this.finish = now();
+        return this;
     }
 }

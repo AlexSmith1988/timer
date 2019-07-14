@@ -7,6 +7,7 @@ import static java.lang.Integer.parseInt;
 
 import entu.timer.output.Output;
 import entu.timer.timers.Service;
+import entu.timer.timers.StopWatch;
 import entu.timer.timers.Timer;
 import entu.timer.timers.Timetable;
 import java.util.List;
@@ -18,6 +19,7 @@ public class CommandLineInterface {
     private final Scanner inScanner;
     private final Service service;
     private final Timetable timetable;
+    private final StopWatch stopWatch;
 
     private String previousCommand;
 
@@ -25,11 +27,12 @@ public class CommandLineInterface {
             final Output output,
             final Scanner inScanner,
             final Service service,
-            final Timetable timetable) {
+            final Timetable timetable, StopWatch stopWatch) {
         this.output = output;
         this.inScanner = inScanner;
         this.service = service;
         this.timetable = timetable;
+        this.stopWatch = stopWatch;
     }
 
     public void start() {
@@ -115,6 +118,17 @@ public class CommandLineInterface {
                                         + "\".");
                     }
                 }
+                continue;
+            }
+
+            if (command.equalsIgnoreCase("start")) {
+                stopWatch.start();
+                output.print("started stopwatch");
+                continue;
+            }
+
+            if (command.equalsIgnoreCase("stop")) {
+                stopWatch.stop();
                 continue;
             }
 
