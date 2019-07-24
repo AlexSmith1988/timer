@@ -1,5 +1,8 @@
 package entu.timer.timers;
 
+import entu.timer.output.Output;
+import entu.timer.persistence.Json;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -7,6 +10,24 @@ import java.util.stream.Stream;
 public class Timetable {
 
     private final List<Timer> timers = new ArrayList<>();
+    private Output output;
+
+    public Timetable(Output output) {
+        this.output = output;
+        try {
+            timers.addAll(Json.deserialize());
+        } catch (IOException e) {
+            output.print("Unable to load timetable history: " + e.getMessage());
+        }
+    }
+
+    public void persist() {
+        try {
+            Json.serialize(timers);
+        } catch (IOException e) {
+            output.print("Unable to save timetable history: " + e.getMessage());
+        }
+    }
 
     void addRecord(final Timer timer) {
         timers.add(timer);
@@ -45,7 +66,7 @@ public class Timetable {
         return timers.stream()
                 .filter(timer -> timer.idInRange(fromId, toId));
     }
-    
+
     public Stream<Timer> get() {
         return timers.stream();
     }

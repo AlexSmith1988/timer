@@ -19,7 +19,7 @@ public class Console {
         final Output stdout = new Output() {
         };
         final Playback playback = new Playback(stdout);
-        final Timetable timetable = new Timetable();
+        final Timetable timetable = new Timetable(stdout);
         final Ids ids = new Ids();
         final Service service =
                 new Service(stdout, timetable, playback, ids);

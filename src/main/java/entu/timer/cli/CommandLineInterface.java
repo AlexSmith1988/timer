@@ -41,6 +41,7 @@ public class CommandLineInterface {
             String command = inScanner.nextLine().trim();
 
             if ("exit".equalsIgnoreCase(command)) {
+                timetable.persist();
                 System.exit(0);
             }
 

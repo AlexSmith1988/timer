@@ -23,12 +23,14 @@ repositories {
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
     implementation("com.google.guava:guava:27.0.1-jre")
+    implementation("com.google.code.gson:gson:2.8.5")
 
     // Use JUnit test framework
     testImplementation("junit:junit:4.12")
+    
 }
 
 application {
     // Define the main class for the application
-    mainClassName = "entu.timer.App"
+    mainClassName = "entu.timer.application.Console"
 }
