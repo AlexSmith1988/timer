@@ -14,6 +14,12 @@ Todo:
     - Convert to hh::mm::ss format
     - Add outputting wall clock time span during which this timers where logged
     - sum n m - sum all timer durations between n and m inclusive
+- clear, clear run
+- runswitch run switch ?
+- daysum ds  sum day?
+- runsum -> rs sum run ?
+- help
+- stat
 - Unit tests!
 - Extract commands
 - use standard library for command line interface
