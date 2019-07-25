@@ -70,4 +70,8 @@ public class Timetable {
     public Stream<Timer> get() {
         return timers.stream();
     }
+
+    public Stream<Timer> getRun() {
+        return get().filter(timer -> timer.getRunId() == Timer.currentRunId());
+    }
 }

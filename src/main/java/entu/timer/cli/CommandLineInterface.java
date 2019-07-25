@@ -84,6 +84,13 @@ public class CommandLineInterface {
 
                 continue;
             }
+            
+            if ("runsum".equalsIgnoreCase(command)) {
+                output.print(
+                        toSecondsAndMinutesMessage(
+                                timetable.getRun().mapToInt(Timer::getDurationSeconds).sum()));
+                continue;
+            }
 
             if ("sum".equalsIgnoreCase(command)) {
                 output.print(

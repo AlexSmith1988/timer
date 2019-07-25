@@ -1,5 +1,6 @@
 package entu.timer.timers;
 
+import static java.lang.System.currentTimeMillis;
 import static java.time.Instant.now;
 import static java.time.LocalDateTime.ofInstant;
 import static java.time.format.DateTimeFormatter.ofLocalizedDateTime;
@@ -15,9 +16,11 @@ import java.util.Locale;
 
 public class Timer {
 
-    public static final int NOT_A_DURATION = 0;
+    private static final long RUN_ID = currentTimeMillis();
 
-    public static final DateTimeFormatter DATE_TIME_FORMATTER =
+    static final int NOT_A_DURATION = 0;
+
+    static final DateTimeFormatter DATE_TIME_FORMATTER =
             ofLocalizedDateTime(FormatStyle.SHORT)
                     .withLocale(Locale.getDefault())
                     .withZone(ZoneId.systemDefault());
@@ -32,6 +35,7 @@ public class Timer {
     private Instant finish;
     private final int durationSeconds;
     private int previousDuration;
+    private long runId = RUN_ID;
 
     Timer(final int id, final Instant start, final int durationSeconds,
             final int previousDuration) {
@@ -51,6 +55,10 @@ public class Timer {
 
     public int id() {
         return id;
+    }
+
+    public long getRunId() {
+        return runId;
     }
 
     @Override
@@ -108,5 +116,9 @@ public class Timer {
     Timer finish() {
         this.finish = now();
         return this;
+    }
+
+    static long currentRunId() {
+        return RUN_ID;
     }
 }
