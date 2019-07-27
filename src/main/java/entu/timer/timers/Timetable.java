@@ -1,8 +1,13 @@
 package entu.timer.timers;
 
+import static java.time.LocalDateTime.ofInstant;
+import static java.time.ZoneId.systemDefault;
+
 import entu.timer.output.Output;
 import entu.timer.persistence.Json;
 import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -73,5 +78,18 @@ public class Timetable {
 
     public Stream<Timer> getRun() {
         return get().filter(timer -> timer.getRunId() == Timer.currentRunId());
+    }
+
+    public static void main(String[] args) {
+        System.out.println();
+    }
+
+    private static boolean today(final Instant instant) {
+        return ofInstant(instant, systemDefault())
+                .isAfter(LocalDate.now().atStartOfDay());
+    }
+
+    public Stream<Timer> getToday() {
+        return get().filter(timer -> today(timer.getStart()));
     }
 }

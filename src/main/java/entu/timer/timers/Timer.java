@@ -16,7 +16,7 @@ import java.util.Locale;
 
 public class Timer {
 
-    private static final long RUN_ID = currentTimeMillis();
+    private static long currentRunId = currentTimeMillis();
 
     static final int NOT_A_DURATION = 0;
 
@@ -35,7 +35,7 @@ public class Timer {
     private Instant finish;
     private final int durationSeconds;
     private int previousDuration;
-    private long runId = RUN_ID;
+    private long runId = currentRunId;
 
     Timer(final int id, final Instant start, final int durationSeconds,
             final int previousDuration) {
@@ -53,11 +53,7 @@ public class Timer {
         return from <= id && id <= to;
     }
 
-    public int id() {
-        return id;
-    }
-
-    public long getRunId() {
+    long getRunId() {
         return runId;
     }
 
@@ -119,6 +115,14 @@ public class Timer {
     }
 
     static long currentRunId() {
-        return RUN_ID;
+        return currentRunId;
+    }
+
+    Instant getStart() {
+        return start;
+    }
+
+    public static void rollRun() {
+        currentRunId = currentTimeMillis();
     }
 }

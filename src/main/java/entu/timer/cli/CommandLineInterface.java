@@ -84,7 +84,20 @@ public class CommandLineInterface {
 
                 continue;
             }
-            
+
+            if ("rollrun".equalsIgnoreCase(command)) {
+                Timer.rollRun();
+                continue;
+            }
+
+            if ("daysum".equalsIgnoreCase(command)) {
+                output.print(
+                        toSecondsAndMinutesMessage(
+                                timetable.getToday().mapToInt(Timer::getDurationSeconds).sum()));
+
+                continue;
+            }
+
             if ("runsum".equalsIgnoreCase(command)) {
                 output.print(
                         toSecondsAndMinutesMessage(
