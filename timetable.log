@@ -1,0 +1,814 @@
+[
+  {
+    "id": 1,
+    "start": {
+      "seconds": 1564234472,
+      "nanos": 654000000
+    },
+    "finish": {
+      "seconds": 1564234473,
+      "nanos": 675000000
+    },
+    "durationSeconds": 1,
+    "previousDuration": 0,
+    "runId": 1564234472654
+  },
+  {
+    "id": 2,
+    "start": {
+      "seconds": 1564234480,
+      "nanos": 469000000
+    },
+    "finish": {
+      "seconds": 1564234482,
+      "nanos": 474000000
+    },
+    "durationSeconds": 2,
+    "previousDuration": 1,
+    "runId": 1564234478514
+  },
+  {
+    "id": 1,
+    "start": {
+      "seconds": 1564303599,
+      "nanos": 348000000
+    },
+    "finish": {
+      "seconds": 1564303600,
+      "nanos": 367000000
+    },
+    "durationSeconds": 1,
+    "previousDuration": 2,
+    "runId": 1564303596704
+  },
+  {
+    "id": 2,
+    "start": {
+      "seconds": 1564303603,
+      "nanos": 923000000
+    },
+    "finish": {
+      "seconds": 1564303605,
+      "nanos": 924000000
+    },
+    "durationSeconds": 2,
+    "previousDuration": 1,
+    "runId": 1564303596704
+  },
+  {
+    "id": 3,
+    "start": {
+      "seconds": 1564303607,
+      "nanos": 678000000
+    },
+    "finish": {
+      "seconds": 1564303610,
+      "nanos": 680000000
+    },
+    "durationSeconds": 3,
+    "previousDuration": 2,
+    "runId": 1564303596704
+  },
+  {
+    "id": 4,
+    "start": {
+      "seconds": 1564303613,
+      "nanos": 747000000
+    },
+    "finish": {
+      "seconds": 1564303618,
+      "nanos": 750000000
+    },
+    "durationSeconds": 5,
+    "previousDuration": 3,
+    "runId": 1564303596704
+  },
+  {
+    "id": 5,
+    "start": {
+      "seconds": 1564303620,
+      "nanos": 507000000
+    },
+    "finish": {
+      "seconds": 1564303628,
+      "nanos": 510000000
+    },
+    "durationSeconds": 8,
+    "previousDuration": 5,
+    "runId": 1564303596704
+  },
+  {
+    "id": 6,
+    "start": {
+      "seconds": 1564303631,
+      "nanos": 219000000
+    },
+    "finish": {
+      "seconds": 1564303646,
+      "nanos": 221000000
+    },
+    "durationSeconds": 15,
+    "previousDuration": 8,
+    "runId": 1564303596704
+  },
+  {
+    "id": 7,
+    "start": {
+      "seconds": 1564303651,
+      "nanos": 80000000
+    },
+    "finish": {
+      "seconds": 1564303676,
+      "nanos": 82000000
+    },
+    "durationSeconds": 25,
+    "previousDuration": 15,
+    "runId": 1564303596704
+  },
+  {
+    "id": 8,
+    "start": {
+      "seconds": 1564303692,
+      "nanos": 379000000
+    },
+    "finish": {
+      "seconds": 1564303732,
+      "nanos": 380000000
+    },
+    "durationSeconds": 40,
+    "previousDuration": 25,
+    "runId": 1564303596704
+  },
+  {
+    "id": 9,
+    "start": {
+      "seconds": 1564303744,
+      "nanos": 586000000
+    },
+    "finish": {
+      "seconds": 1564303804,
+      "nanos": 589000000
+    },
+    "durationSeconds": 60,
+    "previousDuration": 40,
+    "runId": 1564303596704
+  },
+  {
+    "id": 10,
+    "start": {
+      "seconds": 1564303873,
+      "nanos": 123000000
+    },
+    "finish": {
+      "seconds": 1564303958,
+      "nanos": 125000000
+    },
+    "durationSeconds": 85,
+    "previousDuration": 60,
+    "runId": 1564303596704
+  },
+  {
+    "id": 11,
+    "start": {
+      "seconds": 1564303961,
+      "nanos": 592000000
+    },
+    "finish": {
+      "seconds": 1564304076,
+      "nanos": 594000000
+    },
+    "durationSeconds": 115,
+    "previousDuration": 85,
+    "runId": 1564303596704
+  },
+  {
+    "id": 12,
+    "start": {
+      "seconds": 1564304095,
+      "nanos": 731000000
+    },
+    "finish": {
+      "seconds": 1564304245,
+      "nanos": 733000000
+    },
+    "durationSeconds": 150,
+    "previousDuration": 115,
+    "runId": 1564303596704
+  },
+  {
+    "id": 13,
+    "start": {
+      "seconds": 1564304298,
+      "nanos": 302000000
+    },
+    "finish": {
+      "seconds": 1564304488,
+      "nanos": 305000000
+    },
+    "durationSeconds": 190,
+    "previousDuration": 150,
+    "runId": 1564303596704
+  },
+  {
+    "id": 14,
+    "start": {
+      "seconds": 1564304491,
+      "nanos": 305000000
+    },
+    "finish": {
+      "seconds": 1564304726,
+      "nanos": 306000000
+    },
+    "durationSeconds": 235,
+    "previousDuration": 190,
+    "runId": 1564303596704
+  },
+  {
+    "id": 15,
+    "start": {
+      "seconds": 1564305778,
+      "nanos": 122000000
+    },
+    "finish": {
+      "seconds": 1564305793,
+      "nanos": 124000000
+    },
+    "durationSeconds": 15,
+    "previousDuration": 235,
+    "runId": 1564304739516
+  },
+  {
+    "id": 16,
+    "start": {
+      "seconds": 1564305800,
+      "nanos": 732000000
+    },
+    "finish": {
+      "seconds": 1564305825,
+      "nanos": 734000000
+    },
+    "durationSeconds": 25,
+    "previousDuration": 15,
+    "runId": 1564304739516
+  },
+  {
+    "id": 17,
+    "start": {
+      "seconds": 1564305828,
+      "nanos": 825000000
+    },
+    "finish": {
+      "seconds": 1564305868,
+      "nanos": 828000000
+    },
+    "durationSeconds": 40,
+    "previousDuration": 25,
+    "runId": 1564304739516
+  },
+  {
+    "id": 18,
+    "start": {
+      "seconds": 1564305871,
+      "nanos": 144000000
+    },
+    "finish": {
+      "seconds": 1564305931,
+      "nanos": 147000000
+    },
+    "durationSeconds": 60,
+    "previousDuration": 40,
+    "runId": 1564304739516
+  },
+  {
+    "id": 19,
+    "start": {
+      "seconds": 1564305933,
+      "nanos": 621000000
+    },
+    "finish": {
+      "seconds": 1564306018,
+      "nanos": 622000000
+    },
+    "durationSeconds": 85,
+    "previousDuration": 60,
+    "runId": 1564304739516
+  },
+  {
+    "id": 20,
+    "start": {
+      "seconds": 1564306204,
+      "nanos": 664000000
+    },
+    "finish": {
+      "seconds": 1564306319,
+      "nanos": 666000000
+    },
+    "durationSeconds": 115,
+    "previousDuration": 85,
+    "runId": 1564304739516
+  },
+  {
+    "id": 21,
+    "start": {
+      "seconds": 1564306569,
+      "nanos": 452000000
+    },
+    "finish": {
+      "seconds": 1564306719,
+      "nanos": 454000000
+    },
+    "durationSeconds": 150,
+    "previousDuration": 115,
+    "runId": 1564304739516
+  },
+  {
+    "id": 22,
+    "start": {
+      "seconds": 1564308620,
+      "nanos": 609000000
+    },
+    "finish": {
+      "seconds": 1564308645,
+      "nanos": 611000000
+    },
+    "durationSeconds": 25,
+    "previousDuration": 150,
+    "runId": 1564308611154
+  },
+  {
+    "id": 23,
+    "start": {
+      "seconds": 1564308649,
+      "nanos": 254000000
+    },
+    "finish": {
+      "seconds": 1564308684,
+      "nanos": 256000000
+    },
+    "durationSeconds": 35,
+    "previousDuration": 25,
+    "runId": 1564308611154
+  },
+  {
+    "id": 24,
+    "start": {
+      "seconds": 1564308688,
+      "nanos": 486000000
+    },
+    "finish": {
+      "seconds": 1564308738,
+      "nanos": 487000000
+    },
+    "durationSeconds": 50,
+    "previousDuration": 35,
+    "runId": 1564308611154
+  },
+  {
+    "id": 25,
+    "start": {
+      "seconds": 1564308740,
+      "nanos": 757000000
+    },
+    "finish": {
+      "seconds": 1564308810,
+      "nanos": 758000000
+    },
+    "durationSeconds": 70,
+    "previousDuration": 50,
+    "runId": 1564308611154
+  },
+  {
+    "id": 26,
+    "start": {
+      "seconds": 1564308813,
+      "nanos": 565000000
+    },
+    "finish": {
+      "seconds": 1564308908,
+      "nanos": 567000000
+    },
+    "durationSeconds": 95,
+    "previousDuration": 70,
+    "runId": 1564308611154
+  },
+  {
+    "id": 27,
+    "start": {
+      "seconds": 1564308915,
+      "nanos": 486000000
+    },
+    "finish": {
+      "seconds": 1564309040,
+      "nanos": 487000000
+    },
+    "durationSeconds": 125,
+    "previousDuration": 95,
+    "runId": 1564308611154
+  },
+  {
+    "id": 28,
+    "start": {
+      "seconds": 1564309042,
+      "nanos": 897000000
+    },
+    "finish": {
+      "seconds": 1564309202,
+      "nanos": 899000000
+    },
+    "durationSeconds": 160,
+    "previousDuration": 125,
+    "runId": 1564308611154
+  },
+  {
+    "id": 29,
+    "start": {
+      "seconds": 1564309206,
+      "nanos": 338000000
+    },
+    "finish": {
+      "seconds": 1564309406,
+      "nanos": 340000000
+    },
+    "durationSeconds": 200,
+    "previousDuration": 160,
+    "runId": 1564308611154
+  },
+  {
+    "id": 30,
+    "start": {
+      "seconds": 1564310727,
+      "nanos": 969000000
+    },
+    "finish": {
+      "seconds": 1564310757,
+      "nanos": 970000000
+    },
+    "durationSeconds": 30,
+    "previousDuration": 200,
+    "runId": 1564310724262
+  },
+  {
+    "id": 31,
+    "start": {
+      "seconds": 1564310768,
+      "nanos": 225000000
+    },
+    "finish": {
+      "seconds": 1564310808,
+      "nanos": 228000000
+    },
+    "durationSeconds": 40,
+    "previousDuration": 30,
+    "runId": 1564310724262
+  },
+  {
+    "id": 32,
+    "start": {
+      "seconds": 1564310812,
+      "nanos": 95000000
+    },
+    "finish": {
+      "seconds": 1564310867,
+      "nanos": 97000000
+    },
+    "durationSeconds": 55,
+    "previousDuration": 40,
+    "runId": 1564310724262
+  },
+  {
+    "id": 33,
+    "start": {
+      "seconds": 1564310869,
+      "nanos": 993000000
+    },
+    "finish": {
+      "seconds": 1564310944,
+      "nanos": 995000000
+    },
+    "durationSeconds": 75,
+    "previousDuration": 55,
+    "runId": 1564310724262
+  },
+  {
+    "id": 34,
+    "start": {
+      "seconds": 1564311088,
+      "nanos": 257000000
+    },
+    "finish": {
+      "seconds": 1564311188,
+      "nanos": 258000000
+    },
+    "durationSeconds": 100,
+    "previousDuration": 75,
+    "runId": 1564310724262
+  },
+  {
+    "id": 35,
+    "start": {
+      "seconds": 1564311190,
+      "nanos": 631000000
+    },
+    "finish": {
+      "seconds": 1564311320,
+      "nanos": 633000000
+    },
+    "durationSeconds": 130,
+    "previousDuration": 100,
+    "runId": 1564310724262
+  },
+  {
+    "id": 36,
+    "start": {
+      "seconds": 1564311324,
+      "nanos": 240000000
+    },
+    "finish": {
+      "seconds": 1564311489,
+      "nanos": 242000000
+    },
+    "durationSeconds": 165,
+    "previousDuration": 130,
+    "runId": 1564310724262
+  },
+  {
+    "id": 37,
+    "start": {
+      "seconds": 1564311494,
+      "nanos": 90000000
+    },
+    "finish": {
+      "seconds": 1564311699,
+      "nanos": 92000000
+    },
+    "durationSeconds": 205,
+    "previousDuration": 165,
+    "runId": 1564310724262
+  },
+  {
+    "id": 38,
+    "start": {
+      "seconds": 1564311714,
+      "nanos": 118000000
+    },
+    "finish": {
+      "seconds": 1564311964,
+      "nanos": 120000000
+    },
+    "durationSeconds": 250,
+    "previousDuration": 205,
+    "runId": 1564310724262
+  },
+  {
+    "id": 39,
+    "start": {
+      "seconds": 1564312135,
+      "nanos": 185000000
+    },
+    "finish": {
+      "seconds": 1564312435,
+      "nanos": 186000000
+    },
+    "durationSeconds": 300,
+    "previousDuration": 250,
+    "runId": 1564310724262
+  },
+  {
+    "id": 40,
+    "start": {
+      "seconds": 1564312438,
+      "nanos": 813000000
+    },
+    "finish": {
+      "seconds": 1564312793,
+      "nanos": 814000000
+    },
+    "durationSeconds": 355,
+    "previousDuration": 300,
+    "runId": 1564310724262
+  },
+  {
+    "id": 41,
+    "start": {
+      "seconds": 1564312823,
+      "nanos": 112000000
+    },
+    "finish": {
+      "seconds": 1564313238,
+      "nanos": 114000000
+    },
+    "durationSeconds": 415,
+    "previousDuration": 355,
+    "runId": 1564310724262
+  },
+  {
+    "id": 42,
+    "start": {
+      "seconds": 1564313243,
+      "nanos": 866000000
+    },
+    "finish": {
+      "seconds": 1564313723,
+      "nanos": 868000000
+    },
+    "durationSeconds": 480,
+    "previousDuration": 415,
+    "runId": 1564310724262
+  },
+  {
+    "id": 43,
+    "start": {
+      "seconds": 1564328307,
+      "nanos": 40000000
+    },
+    "finish": {
+      "seconds": 1564328317,
+      "nanos": 43000000
+    },
+    "durationSeconds": 10,
+    "previousDuration": 480,
+    "runId": 1564328301606
+  },
+  {
+    "id": 44,
+    "start": {
+      "seconds": 1564328327,
+      "nanos": 109000000
+    },
+    "finish": {
+      "seconds": 1564328357,
+      "nanos": 111000000
+    },
+    "durationSeconds": 30,
+    "previousDuration": 10,
+    "runId": 1564328301606
+  },
+  {
+    "id": 45,
+    "start": {
+      "seconds": 1564328359,
+      "nanos": 637000000
+    },
+    "finish": {
+      "seconds": 1564328419,
+      "nanos": 639000000
+    },
+    "durationSeconds": 60,
+    "previousDuration": 30,
+    "runId": 1564328301606
+  },
+  {
+    "id": 46,
+    "start": {
+      "seconds": 1564328430,
+      "nanos": 961000000
+    },
+    "finish": {
+      "seconds": 1564328535,
+      "nanos": 962000000
+    },
+    "durationSeconds": 105,
+    "previousDuration": 60,
+    "runId": 1564328301606
+  },
+  {
+    "id": 47,
+    "start": {
+      "seconds": 1564328541,
+      "nanos": 872000000
+    },
+    "finish": {
+      "seconds": 1564328721,
+      "nanos": 874000000
+    },
+    "durationSeconds": 180,
+    "previousDuration": 105,
+    "runId": 1564328301606
+  },
+  {
+    "id": 48,
+    "start": {
+      "seconds": 1564328751,
+      "nanos": 928000000
+    },
+    "finish": {
+      "seconds": 1564329066,
+      "nanos": 929000000
+    },
+    "durationSeconds": 315,
+    "previousDuration": 180,
+    "runId": 1564328301606
+  },
+  {
+    "id": 1,
+    "start": {
+      "seconds": 1564331225,
+      "nanos": 540000000
+    },
+    "finish": {
+      "seconds": 1564331240,
+      "nanos": 551000000
+    },
+    "durationSeconds": 15,
+    "previousDuration": 315,
+    "runId": 1564329462242
+  },
+  {
+    "id": 3,
+    "start": {
+      "seconds": 1564331256,
+      "nanos": 305000000
+    },
+    "finish": {
+      "seconds": 1564331286,
+      "nanos": 306000000
+    },
+    "durationSeconds": 30,
+    "previousDuration": -270,
+    "runId": 1564329462242
+  },
+  {
+    "id": 4,
+    "start": {
+      "seconds": 1564331290,
+      "nanos": 942000000
+    },
+    "finish": {
+      "seconds": 1564331335,
+      "nanos": 944000000
+    },
+    "durationSeconds": 45,
+    "previousDuration": 30,
+    "runId": 1564329462242
+  },
+  {
+    "id": 5,
+    "start": {
+      "seconds": 1564331352,
+      "nanos": 579000000
+    },
+    "finish": {
+      "seconds": 1564331427,
+      "nanos": 580000000
+    },
+    "durationSeconds": 75,
+    "previousDuration": 45,
+    "runId": 1564329462242
+  },
+  {
+    "id": 6,
+    "start": {
+      "seconds": 1564331455,
+      "nanos": 894000000
+    },
+    "finish": {
+      "seconds": 1564331575,
+      "nanos": 896000000
+    },
+    "durationSeconds": 120,
+    "previousDuration": 75,
+    "runId": 1564329462242
+  },
+  {
+    "id": 7,
+    "start": {
+      "seconds": 1564331579,
+      "nanos": 93000000
+    },
+    "finish": {
+      "seconds": 1564331759,
+      "nanos": 96000000
+    },
+    "durationSeconds": 180,
+    "previousDuration": 120,
+    "runId": 1564329462242
+  },
+  {
+    "id": 9,
+    "start": {
+      "seconds": 1564331849,
+      "nanos": 774000000
+    },
+    "finish": {
+      "seconds": 1564332104,
+      "nanos": 775000000
+    },
+    "durationSeconds": 255,
+    "previousDuration": 270,
+    "runId": 1564329462242
+  },
+  {
+    "id": 10,
+    "start": {
+      "seconds": 1564332076,
+      "nanos": 517000000
+    },
+    "finish": {
+      "seconds": 1564332351,
+      "nanos": 519000000
+    },
+    "durationSeconds": 275,
+    "previousDuration": 255,
+    "runId": 1564329462242
+  }
+]

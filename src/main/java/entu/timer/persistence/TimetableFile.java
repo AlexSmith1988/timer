@@ -25,10 +25,14 @@ final class TimetableFile {
 
         final File nonUriClassBasedFile = nonUriPath.toFile();
         if (nonUriClassBasedFile.isDirectory()) {
-            return nonUriPath.toString();
+            return goUp(nonUriPath.toString());
         } else {
-            return nonUriClassBasedFile.getParent();
+            return goUp(nonUriClassBasedFile.getParent());
         }
+    }
+
+    private static String goUp(final String path) {
+        return new File(path).getParentFile().getParentFile().getParentFile().getParent();
     }
 
     static FileWriter getWriter() throws IOException {
