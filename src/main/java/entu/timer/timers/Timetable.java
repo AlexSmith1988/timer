@@ -1,5 +1,6 @@
 package entu.timer.timers;
 
+import static entu.timer.timers.Timer.currentRunId;
 import static java.time.LocalDateTime.ofInstant;
 import static java.time.ZoneId.systemDefault;
 
@@ -9,79 +10,86 @@ import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 public class Timetable {
 
-    private final List<Timer> timers = new ArrayList<>();
-    private Output output;
+    private transient Output output;
+
+    private final int version;
+    private final Map<Long, List<Timer>> timers;
 
     public Timetable(Output output) {
         this.output = output;
-        try {
-            timers.addAll(Json.deserialize());
-        } catch (IOException e) {
-            output.print("Unable to load timetable history: " + e.getMessage());
-        }
+        final Timetable loaded = Json.deserialize();
+        version = loaded.version;
+        timers = loaded.timers;
+    }
+
+    public <T> Timetable(int version, List<Timer> timers) {
+        this.version = version;
+        this.timers = new LinkedHashMap<>();
+        timers.forEach(this::addRecord);
     }
 
     public void persist() {
         try {
-            Json.serialize(timers);
+            Json.serialize(this);
         } catch (IOException e) {
             output.print("Unable to save timetable history: " + e.getMessage());
         }
     }
 
     void addRecord(final Timer timer) {
-        timers.add(timer);
+        timers.computeIfAbsent(currentRunId(), ignored -> new ArrayList<>());
+        timers.get(currentRunId()).add(timer);
     }
 
     public void print() {
-        timers.forEach(System.out::println);
+        timers.forEach((runId, timers) -> {
+            output.print("Run: " + runId);
+            timers.forEach(timer -> output.print(timer.toString()));
+        });
     }
 
     public List<Timer> last(final int amount) {
-        final int recordsAmount = timers.size();
+        final List<Timer> currentRun = getRun();
+        final int recordsAmount = currentRun.size();
 
         int fromIndex = recordsAmount - amount - 1;
         if (fromIndex <= 0) {
-            return timers;
+            return currentRun;
         }
-        return timers.subList(fromIndex, recordsAmount);
+        return currentRun.subList(fromIndex, recordsAmount);
     }
 
     public int lastDuration() {
-        if (timers.isEmpty()) {
+        final List<Timer> run = getRun();
+        if (run.isEmpty()) {
             return Timer.NOT_A_DURATION;
         }
-        return timers.get(timers.size() - 1).getDurationSeconds();
+        return run.get(run.size() - 1).getDurationSeconds();
     }
 
     public int lastIncrement() {
-        if (timers.size() < 2) {
+        final List<Timer> run = getRun();
+        if (run.size() < 2) {
             return lastDuration();
         }
-        return timers.get(timers.size() - 1).getDurationSeconds() - timers.get(timers.size() - 2)
+        return run.get(run.size() - 1).getDurationSeconds() - run.get(run.size() - 2)
                 .getDurationSeconds();
     }
 
-    public Stream<Timer> get(final int fromId, final int toId) {
-        return timers.stream()
-                .filter(timer -> timer.idInRange(fromId, toId));
-    }
-
     public Stream<Timer> get() {
-        return timers.stream();
+        return timers.entrySet().stream().flatMap(entry -> entry.getValue().stream());
     }
 
-    public Stream<Timer> getRun() {
-        return get().filter(timer -> timer.getRunId() == Timer.currentRunId());
-    }
-
-    public static void main(String[] args) {
-        System.out.println();
+    public List<Timer> getRun() {
+        final long runId = currentRunId();
+        return timers.computeIfAbsent(runId, ignored -> new ArrayList<>());
     }
 
     private static boolean today(final Instant instant) {
@@ -92,4 +100,9 @@ public class Timetable {
     public Stream<Timer> getToday() {
         return get().filter(timer -> today(timer.getStart()));
     }
+
+    public int getVersion() {
+        return version;
+    }
+
 }

@@ -35,7 +35,6 @@ public class Timer {
     private Instant finish;
     private final int durationSeconds;
     private int previousDuration;
-    private long runId = currentRunId;
 
     Timer(final int id, final Instant start, final int durationSeconds,
             final int previousDuration) {
@@ -51,10 +50,6 @@ public class Timer {
 
     boolean idInRange(final int from, final int to) {
         return from <= id && id <= to;
-    }
-
-    long getRunId() {
-        return runId;
     }
 
     @Override

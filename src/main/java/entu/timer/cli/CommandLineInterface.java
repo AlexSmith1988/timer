@@ -101,7 +101,16 @@ public class CommandLineInterface {
             if ("runsum".equalsIgnoreCase(command)) {
                 output.print(
                         toSecondsAndMinutesMessage(
-                                timetable.getRun().mapToInt(Timer::getDurationSeconds).sum()));
+                                timetable.getRun().stream().mapToInt(Timer::getDurationSeconds)
+                                        .sum()));
+                continue;
+            }
+
+            if ("dayruns".equalsIgnoreCase(command)) {
+                output.print(
+                        toSecondsAndMinutesMessage(
+                                timetable.getRun().stream().mapToInt(Timer::getDurationSeconds)
+                                        .sum()));
                 continue;
             }
 
@@ -109,36 +118,6 @@ public class CommandLineInterface {
                 output.print(
                         toSecondsAndMinutesMessage(
                                 timetable.get().mapToInt(Timer::getDurationSeconds).sum()));
-                continue;
-            }
-
-            if (command.startsWith("sum")) {
-                final String[] args = command.replaceAll(" {2}", " ").split(" ");
-                if (args.length != 3) {
-                    output.print(
-                            "Wrong sum command format. Expected \"sum <from> <till>\". Actual \""
-                                    + command
-                                    + "\".");
-                } else {
-                    try {
-                        final int from = parseInt(args[1]);
-                        final int to = parseInt(args[2]);
-
-                        output.print(
-                                toSecondsAndMinutesMessage(
-                                        timetable.get(from, to).mapToInt(Timer::getDurationSeconds)
-                                                .sum())
-                                        + " - sum from "
-                                        + from
-                                        + " to "
-                                        + to);
-                    } catch (final NumberFormatException nfe) {
-                        output.print(
-                                "Wrong sum command format. Args are expected to be numbers. Actual \""
-                                        + command
-                                        + "\".");
-                    }
-                }
                 continue;
             }
 
