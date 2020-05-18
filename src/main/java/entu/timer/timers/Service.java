@@ -20,10 +20,7 @@ public class Service {
     private final Ids ids;
 
     public Service(
-            final Output output,
-            final Timetable timetable,
-            final Playback playback,
-            Ids ids) {
+            final Output output, final Timetable timetable, final Playback playback, Ids ids) {
         this.output = output;
         this.timetable = timetable;
         this.playback = playback;
@@ -43,5 +40,9 @@ public class Service {
         playback.schedule();
         timer.finish();
         output.print("finished " + timer);
+    }
+
+    public void soundCheck() {
+        playback.schedule();
     }
 }

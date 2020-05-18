@@ -27,7 +27,8 @@ public class CommandLineInterface {
             final Output output,
             final Scanner inScanner,
             final Service service,
-            final Timetable timetable, StopWatch stopWatch) {
+            final Timetable timetable,
+            final StopWatch stopWatch) {
         this.output = output;
         this.inScanner = inScanner;
         this.service = service;
@@ -76,12 +77,17 @@ public class CommandLineInterface {
                             (int)
                                     (averageMultiplier
                                             * lastTimers
-                                            .get(actualAmount - 1)
-                                            .getDurationSeconds());
+                                                    .get(actualAmount - 1)
+                                                    .getDurationSeconds());
                 }
 
                 service.addTimer(nextDuration, timetable.lastDuration());
 
+                continue;
+            }
+
+            if ("sound".equalsIgnoreCase(command)) {
+                service.soundCheck();
                 continue;
             }
 
@@ -101,7 +107,8 @@ public class CommandLineInterface {
             if ("runsum".equalsIgnoreCase(command)) {
                 output.print(
                         toSecondsAndMinutesMessage(
-                                timetable.getRun().stream().mapToInt(Timer::getDurationSeconds)
+                                timetable.getRun().stream()
+                                        .mapToInt(Timer::getDurationSeconds)
                                         .sum()));
                 continue;
             }
@@ -109,7 +116,8 @@ public class CommandLineInterface {
             if ("dayruns".equalsIgnoreCase(command)) {
                 output.print(
                         toSecondsAndMinutesMessage(
-                                timetable.getRun().stream().mapToInt(Timer::getDurationSeconds)
+                                timetable.getRun().stream()
+                                        .mapToInt(Timer::getDurationSeconds)
                                         .sum()));
                 continue;
             }
@@ -151,8 +159,10 @@ public class CommandLineInterface {
                     if (durationType == AS_INCREMENT) {
                         duration = timetable.lastDuration() + baseDurationCoefficient;
                     } else if (durationType == AS_INCREMENT_OF_INCREMENT) {
-                        duration = timetable.lastDuration() + timetable.lastIncrement()
-                                + baseDurationCoefficient;
+                        duration =
+                                timetable.lastDuration()
+                                        + timetable.lastIncrement()
+                                        + baseDurationCoefficient;
                     } else {
                         duration = baseDurationCoefficient;
                     }
@@ -165,7 +175,6 @@ public class CommandLineInterface {
                             "thought to be timer command, but can't identify as a number of seconds: "
                                     + durationStr);
                 }
-
             }
 
             output.print("Unable to identify command: " + command);
@@ -188,4 +197,3 @@ enum DurationType {
     AS_MULTIPLIER,
     AS_INCREMENT_MULTIPLIER
 }
-
