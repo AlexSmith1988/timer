@@ -4,12 +4,15 @@ import static entu.timer.cli.DurationType.AS_INCREMENT;
 import static entu.timer.cli.DurationType.AS_INCREMENT_OF_INCREMENT;
 import static entu.timer.cli.DurationType.PLAIN;
 import static java.lang.Integer.parseInt;
+import static java.util.Arrays.asList;
 
+import entu.timer.application.CommandExecutor;
 import entu.timer.output.Output;
 import entu.timer.timers.Service;
 import entu.timer.timers.StopWatch;
 import entu.timer.timers.Timer;
 import entu.timer.timers.Timetable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -23,6 +26,8 @@ public class CommandLineInterface {
 
     private String previousCommand;
 
+    private final List<CommandExecutor> commandExecutors = new ArrayList<>();
+
     public CommandLineInterface(
             final Output output,
             final Scanner inScanner,
@@ -34,110 +39,157 @@ public class CommandLineInterface {
         this.service = service;
         this.timetable = timetable;
         this.stopWatch = stopWatch;
+
+        registerCommand(
+                        "exit",
+                        () -> {
+                            timetable.persist();
+                            System.exit(0);
+                        })
+                .registerCommand("timetable", timetable::print)
+                .registerCommand(
+                        "next",
+                        () -> {
+                            final List<Timer> lastTimers = timetable.last(5);
+                            double averageMultiplier = 0.0;
+                            int actualAmount = lastTimers.size();
+                            for (int i = 0; i < actualAmount - 1; ++i) {
+                                averageMultiplier +=
+                                        1.0
+                                                * lastTimers.get(i + 1).getDurationSeconds()
+                                                / lastTimers.get(i).getDurationSeconds();
+                            }
+                            averageMultiplier /= (actualAmount - 1);
+
+                            final int nextDuration;
+                            if (averageMultiplier < 0.1 || actualAmount < 1) {
+                                nextDuration = 1;
+                            } else {
+                                nextDuration =
+                                        (int)
+                                                (averageMultiplier
+                                                        * lastTimers
+                                                                .get(actualAmount - 1)
+                                                                .getDurationSeconds());
+                            }
+
+                            service.addTimer(nextDuration, timetable.lastDuration());
+                        })
+                .registerCommand("sound", service::soundCheck)
+                .registerCommand("rollrun", Timer::rollRun)
+                // todo fix to be previous day, i.e. ending right now
+                .registerCommand(
+                        "daysum",
+                        () ->
+                                output.print(
+                                        toSecondsAndMinutesMessage(
+                                                timetable
+                                                        .getToday()
+                                                        .mapToInt(Timer::getDurationSeconds)
+                                                        .sum())))
+                .registerCommand(
+                        "runsum",
+                        () ->
+                                output.print(
+                                        toSecondsAndMinutesMessage(
+                                                timetable.getRun().stream()
+                                                        .mapToInt(Timer::getDurationSeconds)
+                                                        .sum())))
+                .registerCommand(
+                        "dayruns",
+                        () ->
+                                output.print(
+                                        toSecondsAndMinutesMessage(
+                                                timetable.getRun().stream()
+                                                        .mapToInt(Timer::getDurationSeconds)
+                                                        .sum())))
+                .registerCommand(
+                        "sum",
+                        () ->
+                                output.print(
+                                        toSecondsAndMinutesMessage(
+                                                timetable
+                                                        .get()
+                                                        .mapToInt(Timer::getDurationSeconds)
+                                                        .sum())))
+                .registerCommand("start", stopWatch::start)
+                // todo fix stop command, check start command
+                .registerCommand("stop", stopWatch::stop)
+                .registerCommand(
+                        "help",
+                        () -> commandExecutors.forEach(executor -> output.print(executor.help())));
+        ;
+    }
+
+    private CommandLineInterface registerCommand(String command, Runnable executor) {
+        commandExecutors.add(CommandExecutor.forCommand(command, executor));
+        return this;
     }
 
     public void start() {
         while (true) {
             prompt();
-            String command = inScanner.nextLine().trim();
+            execute(readCommand());
+        }
+    }
 
-            if ("exit".equalsIgnoreCase(command)) {
-                timetable.persist();
-                System.exit(0);
+    private void prompt() {
+        output.print("timetable, <N>s - n seconds, exit");
+    }
+
+    private String readCommand() {
+        return inScanner.nextLine().trim();
+    }
+
+    private void execute(String command) {
+        if ("r".equalsIgnoreCase(command) || "repeat".equalsIgnoreCase(command)) {
+            execute(previousCommand);
+        } else {
+            previousCommand = command;
+
+            if (commandExecutors.stream().anyMatch(executor -> executor.executeOnMatch(command))) {
+                return;
             }
 
-            if ("r".equalsIgnoreCase(command) || "repeat".equalsIgnoreCase(command)) {
-                command = previousCommand;
-            } else {
-                previousCommand = command;
-            }
+            new CommandExecutor() {
 
-            if ("timetable".equalsIgnoreCase(command)) {
-                timetable.print();
-                continue;
-            }
+                private final List<String> secondTokens = asList("s", "sec", "second", "seconds");
+                private final List<String> minuteTokens = asList("m", "min", "minute", "minutes");
 
-            if ("next".equalsIgnoreCase(command)) {
-                final List<Timer> lastTimers = timetable.last(5);
-                double averageMultiplier = 0.0;
-                int actualAmount = lastTimers.size();
-                for (int i = 0; i < actualAmount - 1; ++i) {
-                    averageMultiplier +=
-                            1.0
-                                    * lastTimers.get(i + 1).getDurationSeconds()
-                                    / lastTimers.get(i).getDurationSeconds();
+                private int seconds;
+                private int pluses;
+
+                @Override
+                public boolean executeOnMatch(String command) {
+                    if (command.isEmpty()) return false;
+
+                    pluses = 0;
+                    for (pluses = 0; command.charAt(pluses) == '+'; ++pluses) {}
+                    command = command.substring(pluses);
+
+                    final int commandLength = command.length();
+
+                    endsWithOneOfTokens(command, commandLength, minuteTokens);
+                    return false;
                 }
-                averageMultiplier /= (actualAmount - 1);
 
-                final int nextDuration;
-                if (averageMultiplier < 0.1 || actualAmount < 1) {
-                    nextDuration = 1;
-                } else {
-                    nextDuration =
-                            (int)
-                                    (averageMultiplier
-                                            * lastTimers
-                                                    .get(actualAmount - 1)
-                                                    .getDurationSeconds());
+                private boolean endsWithOneOfTokens(
+                        String command, int commandLength, List<String> tokens) {
+                    boolean endsWithOneOfTokens = false;
+                    for (String minuteToken : minuteTokens) {
+                        final int tokenLength = minuteToken.length();
+                        if (commandLength < tokenLength) continue;
+
+                        if (minuteToken.equalsIgnoreCase(
+                                command.substring(commandLength - tokenLength))) {
+                            endsWithOneOfTokens = true;
+                            break;
+                        }
+                    }
+
+                    return endsWithOneOfTokens;
                 }
-
-                service.addTimer(nextDuration, timetable.lastDuration());
-
-                continue;
-            }
-
-            if ("sound".equalsIgnoreCase(command)) {
-                service.soundCheck();
-                continue;
-            }
-
-            if ("rollrun".equalsIgnoreCase(command)) {
-                Timer.rollRun();
-                continue;
-            }
-
-            if ("daysum".equalsIgnoreCase(command)) {
-                output.print(
-                        toSecondsAndMinutesMessage(
-                                timetable.getToday().mapToInt(Timer::getDurationSeconds).sum()));
-
-                continue;
-            }
-
-            if ("runsum".equalsIgnoreCase(command)) {
-                output.print(
-                        toSecondsAndMinutesMessage(
-                                timetable.getRun().stream()
-                                        .mapToInt(Timer::getDurationSeconds)
-                                        .sum()));
-                continue;
-            }
-
-            if ("dayruns".equalsIgnoreCase(command)) {
-                output.print(
-                        toSecondsAndMinutesMessage(
-                                timetable.getRun().stream()
-                                        .mapToInt(Timer::getDurationSeconds)
-                                        .sum()));
-                continue;
-            }
-
-            if ("sum".equalsIgnoreCase(command)) {
-                output.print(
-                        toSecondsAndMinutesMessage(
-                                timetable.get().mapToInt(Timer::getDurationSeconds).sum()));
-                continue;
-            }
-
-            if (command.equalsIgnoreCase("start")) {
-                stopWatch.start();
-                continue;
-            }
-
-            if (command.equalsIgnoreCase("stop")) {
-                stopWatch.stop();
-                continue;
-            }
+            };
 
             if (command.length() > 1 && command.charAt(command.length() - 1) == 's') {
                 String durationStr = command.substring(0, command.length() - 1).trim();
@@ -168,7 +220,7 @@ public class CommandLineInterface {
                     }
 
                     service.addTimer(duration, timetable.lastDuration());
-                    continue;
+                    return;
 
                 } catch (NumberFormatException e) {
                     output.print(
@@ -183,10 +235,6 @@ public class CommandLineInterface {
 
     String toSecondsAndMinutesMessage(final int seconds) {
         return seconds + " in seconds or " + seconds / 60 + ":" + seconds % 60 + " in min:sec";
-    }
-
-    private void prompt() {
-        output.print("timetable, <N>s - n seconds, exit");
     }
 }
 
